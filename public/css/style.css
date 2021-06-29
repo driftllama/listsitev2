@@ -1,0 +1,79 @@
+.main.container {
+	padding-top: 3.0em;
+}
+
+.row1 {
+	box-sizing: border-box;
+}
+
+.column1 {
+	float: left;
+	width: 31.5%;
+	height: 375px;
+	overflow: auto;
+	border: 1px solid grey;
+	box-shadow: 1px 1px 1px #888888;
+	border-radius: 5px;
+	padding-top: 20px;
+	margin-left: 5px;
+	margin-right: 5px;
+	padding-left: 5px;
+	background-color: white;
+}
+
+.row1:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+.row1 {
+	margin: auto;
+}
+
+.deletebutton {
+	display: inline;
+}
+
+.ui.icon.trash.alternate {
+	color: red;
+}
+
+.centerbl {
+	margin: auto;
+}
+
+.centerel {
+	text-align: center;
+}
+
+.standout {
+	border: 1px solid grey;
+	box-shadow: 1px 1px 1px #888888;
+	border-radius: 5px;
+	width: 40%;
+	margin: auto;
+	padding: 20px;
+	background-color: white;
+	margin-bottom: 20px;
+}
+
+.ui.field.small.input {
+	height: 20px;
+	width: 200px;
+}
+
+.ui.button.small {
+	font-size: 0.65em;
+}
+
+body {
+	background: #12c2e9;
+	/*background: -webkit-linear-gradient(to bottom, #f64f59, #c471ed, #12c2e9); 
+	background: linear-gradient(to bottom, #f64f59, #c471ed, #12c2e9);*/
+}
+
+.trash {
+	background-color: white;
+	border: 0px;
+}

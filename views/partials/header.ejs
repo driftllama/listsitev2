@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>list site</title>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+		<link rel="stylesheet" href="css/style.css">
+	</head>
+	<body>
+		<div class="ui fixed menu">
+  			<div class="header item">
+   				<a href="/">R2's Corner</a>
+ 			</div>
+			<% if(currentUser) { %>
+			<a href="/dashboard" class="item">
+   				Dashboard
+ 			</a>
+  			<a href="/mylists" class="item">
+   				My Lists
+ 			</a>
+			<% } %>
+			<div class="right menu">
+				<% if(!currentUser) { %>
+				<a class="item" href="/register">
+					Sign Up
+				</a>
+				<a class="item" href="/login">
+					Log In
+				</a>
+				<% } else { %>
+					<a class="item" href="/logout">Log Out</a>
+					<a class="item" href="#">Signed in as <%= currentUser.username %></a>
+				<% } %>
+			</div>
+		</div>
+		<div style="height:55px"></div>

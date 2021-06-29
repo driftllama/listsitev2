@@ -1,0 +1,127 @@
+<%- include("../partials/header") %>
+<div class="standout centerel">
+	<h1>
+		Make new list
+	</h1>
+	<form action="/newList" method="POST" class="ui form">
+		<div class="ui field">
+			<input type="text" name="list[title]" placeholder="New List Name" required="">
+		</div>		
+		<button class="ui button green">Create New List</button>
+	</form>
+</div>
+<div style="padding-bottom: 45px;">
+
+</div>
+
+<%	
+function daysInMonth (month, year) { 
+    return new Date(year, month, 0).getDate(); 
+} 
+var today1 = new Date();
+var month1 = today1.getMonth() + 1;
+var day1 = today1.getDate();
+var year1 = today1.getFullYear();
+var monthdays1 = 0;
+for (var i = 0; i < month1; i++) {
+	monthdays1 = monthdays1 + parseInt(daysInMonth(i, year1));
+}
+var total1 = monthdays1 + year1 * 365 + day1; 
+%>
+
+<% lists.forEach(function(list){ %>
+<div class="standout">
+	<h4>
+		<%= list.title %>
+		<form action="/<%= list._id %>/deleteList?_method=DELETE" method="POST" class="deletebutton">
+			<button class="trash"><i class="ui icon trash alternate"></i></button>
+		</form>
+	</h4>
+	<form class="ui form" action="/<%= list._id %>/newElement" method="POST">
+		<div class="ui field input small">
+			<input type="text" name="element" placeholder="New List Element" required="">			
+		</div>
+		<div class="ui field input small">
+			<input type="date" name="duedate" class="dateInput" required="">
+		</div>
+		<button class="ui button small green">Add</button>
+	</form>
+	<div class="row1">
+		<div class="column1">
+			<h1>Due Today</h1>
+			<% var i = 0 %>
+			<% list.elements.forEach(function(element){ %>
+				<% var diff = element.dayssince0000 - total1 %>
+				<strong><% if(diff == 0) { %>
+				<%= element.title %>
+				<form action="/<%= list._id %>/deleteElement/<%= i %>?_method=DELETE" method="POST" class="deletebutton">
+					<button class="trash"><i class="ui icon trash alternate"></i></button>
+				</form>
+				<div style="padding-bottom: 25px;">
+
+				</div>
+				<% } %></strong>
+				<% i++ %>
+			<% }) %>
+		</div>
+		<div class="column1">
+			<h1>Overdue</h1>
+			<% var i = 0 %>
+			<% list.elements.forEach(function(element){ %>
+				<% var diff = element.dayssince0000 - total1 %>
+				<strong><% if(diff == -1) { %>
+				<%= element.title %>
+				<span style="color: red;"> Task due yesterday </span>
+				<form action="/<%= list._id %>/deleteElement/<%= i %>?_method=DELETE" method="POST" class="deletebutton">
+					<button class="trash"><i class="ui icon trash alternate"></i></button>
+				</form>
+				<div style="padding-bottom: 25px;">
+
+				</div>
+				<% } else if(diff < -1) { %>
+				<%= element.title %>
+				<span style="color: red;"> Task due <%= diff * -1 %> days ago </span>
+				<form action="/<%= list._id %>/deleteElement/<%= i %>?_method=DELETE" method="POST" class="deletebutton">
+					<button class="trash"><i class="ui icon trash alternate"></i></button>
+				</form>
+				<div style="padding-bottom: 25px;">
+
+				</div>
+				<% } %></strong>
+				<% i++ %>
+			<% }) %>
+		</div>
+		<div class="column1">
+			<h1>Due Later</h1>
+			<% var i = 0 %>
+			<% list.elements.forEach(function(element){ %>
+				<% var diff = element.dayssince0000 - total1 %>
+				<strong><% if(diff == 1) { %>
+				<%= element.title %>
+				<span style="color: #eff542;"> Task due tomorrow </span>
+				<form action="/<%= list._id %>/deleteElement/<%= i %>?_method=DELETE" method="POST" class="deletebutton">
+					<button class="trash"><i class="ui icon trash alternate"></i></button>
+				</form>
+				<div style="padding-bottom: 25px;">
+
+				</div>
+				<% } else if(diff > 1) { %>
+				<%= element.title %>
+				<span style="color: #42f545;">Task due in <%= diff %> days</span>
+				<form action="/<%= list._id %>/deleteElement/<%= i %>?_method=DELETE" method="POST" class="deletebutton">
+					<button class="trash"><i class="ui icon trash alternate"></i></button>
+				</form>
+				<div style="padding-bottom: 25px;">
+
+				</div>
+				<% } %></strong>
+				<% i++ %>
+			<% }) %>		
+		</div>
+		<div style="padding-bottom: 45px;">
+
+		</div>
+	</div>
+</div>
+<% }); %>
+<%- include("../partials/footer") %>
